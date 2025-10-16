@@ -1,0 +1,8 @@
+<div class="flex flex-wrap justify-evenly items-center">
+  @for (picture of pictures.value(); track picture.id) {
+  <img [src]="picture.webformatURL" />
+  }
+</div>
+
+<button [disabled]="page == 10" (click)="nextPage()">Next</button>
+<button [disabled]="page == 1 || !page" (click)="prevPage()">Prev</button>
