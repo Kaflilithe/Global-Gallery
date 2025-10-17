@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   Inject,
   inject,
+  signal,
 } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { GalleryService } from '../../data/services/gallery.service';
@@ -18,30 +20,36 @@ export class GalleryComponent {
   galleryService = inject(GalleryService);
   activRoute = inject(ActivatedRoute);
   router = inject(Router);
-  page = 1;
+  page = signal(1);
   pictures = rxResource({
     loader: () =>
       this.activRoute.queryParams.pipe(
         switchMap(({ page }) => {
           if (page) {
-            this.page = page;
+            this.page.set(Number(page));
           }
-          return this.galleryService.getImages(52, page);
+
+          return this.galleryService.getImages(5, page);
         })
       ),
   });
-  nextPage() {
-    this.page++;
-    this.router.navigate([], {
-      relativeTo: this.activRoute,
-      queryParams: { page: this.page },
+  constructor() {
+    effect(() => {
+      this.updatePage(this.page());
     });
   }
-  prevPage() {
-    this.page--;
+
+  updatePage(page: number) {
     this.router.navigate([], {
       relativeTo: this.activRoute,
-      queryParams: { page: this.page },
+      queryParams: { page },
     });
+  }
+
+  nextPage() {
+    this.page.update((p) => p + 1);
+  }
+  prevPage() {
+    this.page.update((p) => p - 1);
   }
 }

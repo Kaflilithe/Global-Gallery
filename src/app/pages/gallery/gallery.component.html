@@ -4,5 +4,7 @@
   }
 </div>
 
-<button [disabled]="page == 10" (click)="nextPage()">Next</button>
-<button [disabled]="page == 1 || !page" (click)="prevPage()">Prev</button>
+<div class="flex w-full justify-between">
+  <button [disabled]="page() == 1 || !page()" (click)="prevPage()">Prev</button>
+  <button [disabled]="page() == 10" (click)="nextPage()">Next</button>
+</div>
