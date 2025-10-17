@@ -30,7 +30,7 @@ export class GalleryComponent {
           }
 
           return this.galleryService.getImages(5, page);
-        })
+        }),
       ),
   });
   constructor() {

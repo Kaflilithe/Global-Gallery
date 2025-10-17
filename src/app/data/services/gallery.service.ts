@@ -14,7 +14,7 @@ export class GalleryService {
   getImages(per_page = 20, page = 1) {
     return this.http
       .get<PictureDto>(
-        `${this.baseApiUrl}?key=${this.key}&per_page=${per_page}&page=${page}`
+        `${this.baseApiUrl}?key=${this.key}&per_page=${per_page}&page=${page}`,
       )
       .pipe(map((dto) => dto.hits));
   }

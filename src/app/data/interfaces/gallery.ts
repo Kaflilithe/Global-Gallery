@@ -29,5 +29,3 @@ export interface Picture {
   user: string;
   userImageURL: string;
 }
-
-
