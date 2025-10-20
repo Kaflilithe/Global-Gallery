@@ -30,16 +30,18 @@ export class GalleryComponent {
           if (page) {
             this.page.set(Number(page));
           }
-          return this.galleryService.getImages(this.quantityPictures(), page).pipe(
-            map((dto) => {
-              this.quantityPage.update(() =>
-                Math.ceil(dto.totalHits / this.quantityPictures()),
-              );
-              console.log(Math.ceil(dto.totalHits / page));
+          return this.galleryService
+            .getImages(this.quantityPictures(), page)
+            .pipe(
+              map((dto) => {
+                this.quantityPage.update(() =>
+                  Math.ceil(dto.totalHits / this.quantityPictures()),
+                );
+                console.log(Math.ceil(dto.totalHits / page));
 
-              return dto.hits;
-            }),
-          );
+                return dto.hits;
+              }),
+            );
         }),
       ),
   });

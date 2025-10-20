@@ -1,3 +1,4 @@
+import { TuiRoot } from '@taiga-ui/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -6,6 +7,6 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, TuiRoot, TuiRoot],
 })
 export class AppComponent {}

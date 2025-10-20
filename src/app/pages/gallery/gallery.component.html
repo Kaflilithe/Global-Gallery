@@ -6,5 +6,7 @@
 
 <div class="flex w-full justify-between">
   <button [disabled]="page() <= 1 || !page()" (click)="prevPage()">Prev</button>
-  <button [disabled]="page() >= quantityPage()" (click)="nextPage()">Next</button>
+  <button [disabled]="page() >= quantityPage()" (click)="nextPage()">
+    Next
+  </button>
 </div>

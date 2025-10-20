@@ -12,9 +12,8 @@ export class GalleryService {
   key = '52781238-046b00268278ee34e5672f51a';
 
   getImages(per_page = 20, page = 1) {
-    return this.http
-      .get<PictureDto>(
-        `${this.baseApiUrl}?key=${this.key}&per_page=${per_page}&page=${page}&editors_choice=true`,
-      )
+    return this.http.get<PictureDto>(
+      `${this.baseApiUrl}?key=${this.key}&per_page=${per_page}&page=${page}&editors_choice=true`,
+    );
   }
 }
