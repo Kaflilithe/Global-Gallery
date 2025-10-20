@@ -1,11 +1,10 @@
-import { Component, input, signal } from '@angular/core';
 import { Picture } from '../../../data/interfaces/gallery';
-import { TuiShimmer, TuiSkeleton } from '@taiga-ui/kit';
-import { TuiIcon } from "@taiga-ui/core";
+import { TuiSkeleton } from '@taiga-ui/kit';
+import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-gallery-img',
-  imports: [TuiSkeleton, TuiShimmer, TuiIcon],
+  imports: [TuiSkeleton],
   templateUrl: './gallery-img.component.html',
   styleUrl: './gallery-img.component.css',
 })

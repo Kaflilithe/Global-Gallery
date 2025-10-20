@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { PictureDto } from '../interfaces/gallery';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

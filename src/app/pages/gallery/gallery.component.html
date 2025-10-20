@@ -1,11 +1,11 @@
 <div class="flex flex-wrap justify-evenly items-center gap-2">
   @for (picture of pictures.value(); track picture.id) {
     <app-gallery-img [picture]="picture"/>
-
   }
 </div>
+
 <div class="flex w-full justify-center flex-col items-center sticky bottom-0">
-  <tui-pager [count]="quantityPage() + 1" [index]="page() - 1" />
+  <tui-pager [count]="quantityPage() + 1" [index]="page() - 1"/>
 
   <div class="tui-space_top-3">
     <button size="xs" tuiButton type="button" (click)="prevPage()">prev</button>
