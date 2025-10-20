@@ -10,10 +10,13 @@ import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { GalleryService } from '../../data/services/gallery.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs';
+import { TuiButton } from '@taiga-ui/core';
+import { TuiPager } from '@taiga-ui/kit';
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css',
+  imports: [TuiButton, TuiPager],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryComponent {
@@ -59,9 +62,9 @@ export class GalleryComponent {
   }
 
   nextPage() {
-    this.page.update((p) => p + 1);
+    this.page.update((p) => (p <= this.quantityPage() ? p + 1 : p));
   }
   prevPage() {
-    this.page.update((p) => p - 1);
+    this.page.update((p) => (p > 1 ? p - 1 : p));
   }
 }

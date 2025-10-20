@@ -1,12 +1,25 @@
-<div class="flex flex-wrap justify-evenly items-center">
+<div class="flex flex-wrap justify-evenly items-center gap-2">
   @for (picture of pictures.value(); track picture.id) {
-    <img [src]="picture.webformatURL" />
+    <img
+      [src]="picture.webformatURL"
+      [width]="picture.webformatWidth"
+      [height]="picture.webformatHeight"
+    />
   }
 </div>
+<div class="flex w-full justify-center flex-col items-center sticky bottom-0">
+  <tui-pager [count]="quantityPage() + 1" [index]="page() - 1" />
 
-<div class="flex w-full justify-between">
-  <button [disabled]="page() <= 1 || !page()" (click)="prevPage()">Prev</button>
-  <button [disabled]="page() >= quantityPage()" (click)="nextPage()">
-    Next
-  </button>
+  <div class="tui-space_top-3">
+    <button size="xs" tuiButton type="button" (click)="prevPage()">prev</button>
+    <button
+      size="xs"
+      tuiButton
+      type="button"
+      class="tui-space_left-3"
+      (click)="nextPage()"
+    >
+      next
+    </button>
+  </div>
 </div>
