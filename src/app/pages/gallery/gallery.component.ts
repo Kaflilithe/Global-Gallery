@@ -2,21 +2,22 @@ import {
   ChangeDetectionStrategy,
   Component,
   effect,
-  Inject,
   inject,
-  signal,
+  signal
 } from '@angular/core';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop';
-import { GalleryService } from '../../data/services/gallery.service';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap } from 'rxjs';
 import { TuiButton } from '@taiga-ui/core';
 import { TuiPager } from '@taiga-ui/kit';
+import { map, switchMap } from 'rxjs';
+import { GalleryService } from '../../data/services/gallery.service';
+import { GalleryImgComponent } from "./gallery-img/gallery-img.component";
+
 @Component({
-  selector: 'app-gallery',
+  selector: 'app-gallery',  
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css',
-  imports: [TuiButton, TuiPager],
+  imports: [TuiButton, TuiPager, GalleryImgComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryComponent {

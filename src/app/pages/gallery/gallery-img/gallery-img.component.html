@@ -1,0 +1,7 @@
+<img
+  [src]="picture().webformatURL"
+  [width]="picture().webformatWidth"
+  [height]="picture().webformatHeight"
+  [tuiSkeleton]="skeleton()"
+  (load)="skeleton.set(false)"
+/>

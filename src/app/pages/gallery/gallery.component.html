@@ -1,10 +1,7 @@
 <div class="flex flex-wrap justify-evenly items-center gap-2">
   @for (picture of pictures.value(); track picture.id) {
-    <img
-      [src]="picture.webformatURL"
-      [width]="picture.webformatWidth"
-      [height]="picture.webformatHeight"
-    />
+    <app-gallery-img [picture]="picture"/>
+
   }
 </div>
 <div class="flex w-full justify-center flex-col items-center sticky bottom-0">
