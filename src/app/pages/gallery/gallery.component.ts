@@ -9,7 +9,7 @@ import {
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { GalleryService } from '../../data/services/gallery.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
@@ -21,6 +21,8 @@ export class GalleryComponent {
   activRoute = inject(ActivatedRoute);
   router = inject(Router);
   page = signal(1);
+  quantityPage = signal(10);
+  quantityPictures = signal(5);
   pictures = rxResource({
     loader: () =>
       this.activRoute.queryParams.pipe(
@@ -28,8 +30,16 @@ export class GalleryComponent {
           if (page) {
             this.page.set(Number(page));
           }
+          return this.galleryService.getImages(this.quantityPictures(), page).pipe(
+            map((dto) => {
+              this.quantityPage.update(() =>
+                Math.ceil(dto.totalHits / this.quantityPictures()),
+              );
+              console.log(Math.ceil(dto.totalHits / page));
 
-          return this.galleryService.getImages(5, page);
+              return dto.hits;
+            }),
+          );
         }),
       ),
   });
