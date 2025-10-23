@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { PictureDto } from '../interfaces/gallery';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +15,14 @@ export class GalleryService {
     return this.http.get<PictureDto>(
       `${this.baseApiUrl}?key=${this.key}&per_page=${per_page}&page=${page}&editors_choice=true`,
     );
+  }
+  getImage(id: number) {
+    return this.http
+      .get<PictureDto>(`${this.baseApiUrl}?key=${this.key}&id=${id}`)
+      .pipe(
+        map((e) => {
+          return e.hits;
+        }),
+      );
   }
 }
