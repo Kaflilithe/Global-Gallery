@@ -1,4 +1,4 @@
-<div class="flex flex-wrap justify-evenly items-center gap-2">
+<div class="flex flex-wrap justify-evenly items-center gap-2 max-sm:gap-4 ">
   @for (picture of pictures.value(); track picture.id) {
     <app-img (click)="navigateToPhotoPage(picture.id)" [picture]="picture"/>
   }
