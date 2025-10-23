@@ -4,10 +4,11 @@ import { GalleryService } from '../../data/services/gallery.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { TuiAvatar } from '@taiga-ui/kit';
+import { ImgComponent } from '../../shared/ui/img/img.component';
 
 @Component({
   selector: 'app-photo-pages',
-  imports: [TuiAvatar],
+  imports: [TuiAvatar, ImgComponent],
   templateUrl: './photo-page.component.html',
   styleUrl: './photo-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,6 @@
 <div class="flex flex-wrap justify-evenly items-center gap-2">
   @for (picture of pictures.value(); track picture.id) {
-    <app-gallery-img [picture]="picture"/>
+    <app-img (click)="navigateToPhotoPage(picture.id)" [picture]="picture"/>
   }
 </div>
 

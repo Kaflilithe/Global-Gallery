@@ -11,13 +11,13 @@ import { TuiButton } from '@taiga-ui/core';
 import { TuiPager } from '@taiga-ui/kit';
 import { map, switchMap } from 'rxjs';
 import { GalleryService } from '../../data/services/gallery.service';
-import { GalleryImgComponent } from './gallery-img/gallery-img.component';
+import { ImgComponent } from '../../shared/ui/img/img.component';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css',
-  imports: [TuiButton, TuiPager, GalleryImgComponent],
+  imports: [TuiButton, TuiPager, ImgComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryComponent {
@@ -61,7 +61,9 @@ export class GalleryComponent {
       queryParams: { page },
     });
   }
-
+  navigateToPhotoPage(id: number) {
+    return this.router.navigate(['/image', id]);
+  }
   nextPage() {
     this.page.update((p) => (p <= this.quantityPage() ? p + 1 : p));
   }
