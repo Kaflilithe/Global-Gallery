@@ -4,6 +4,11 @@ import { PhotoPagesComponent } from './pages/photo-page/photo-page.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'gallery',
+  },
+  {
     path: 'gallery',
     component: GalleryComponent,
   },
