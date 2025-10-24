@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   effect,
+  ElementRef,
   inject,
   signal,
+  viewChildren,
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,24 +14,30 @@ import { TuiPager } from '@taiga-ui/kit';
 import { map, switchMap } from 'rxjs';
 import { GalleryService } from '../../data/services/gallery.service';
 import { ImgComponent } from '../../shared/ui/img/img.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css',
-  imports: [TuiButton, TuiPager, ImgComponent],
+  imports: [TuiButton, TuiPager, ImgComponent, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryComponent {
   galleryService = inject(GalleryService);
-  activRoute = inject(ActivatedRoute);
+  activeRoute = inject(ActivatedRoute);
   router = inject(Router);
+
+  imgQuery = viewChildren('img', {
+    read: ElementRef,
+  });
+
   page = signal(1);
   quantityPage = signal(10);
   quantityPictures = signal(5);
   pictures = rxResource({
     loader: () =>
-      this.activRoute.queryParams.pipe(
+      this.activeRoute.queryParams.pipe(
         switchMap(({ page }) => {
           if (page) {
             this.page.set(Number(page));
@@ -49,15 +57,20 @@ export class GalleryComponent {
         }),
       ),
   });
+
   constructor() {
     effect(() => {
       this.updatePage(this.page());
+    });
+
+    effect(() => {
+      this.imgQuery()[0]?.nativeElement.scrollIntoView({ behavior: 'smooth' });
     });
   }
 
   updatePage(page: number) {
     this.router.navigate([], {
-      relativeTo: this.activRoute,
+      relativeTo: this.activeRoute,
       queryParams: { page },
     });
   }

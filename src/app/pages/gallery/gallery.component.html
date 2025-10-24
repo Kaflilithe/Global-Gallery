@@ -1,16 +1,17 @@
 <div class="flex flex-wrap justify-evenly items-center gap-2 max-sm:gap-4 ">
+
   @for (picture of pictures.value(); track picture.id) {
-    <app-img (click)="navigateToPhotoPage(picture.id)" [picture]="picture"/>
+    <app-img #img (click)="navigateToPhotoPage(picture.id)" [picture]="picture"/>
   }
 </div>
 
-<div class="flex w-full justify-center flex-col items-center sticky bottom-0">
+<div class="flex w-full justify-center flex-col items-center sticky bottom-0 backdrop-blur-md p-2">
   <tui-pager [count]="quantityPage() + 1" [index]="page() - 1"/>
 
-  <div class="tui-space_top-3">
-    <button size="xs" tuiButton type="button" (click)="prevPage()">prev</button>
+  <div class="tui-space_top-3 flex gap-2">
+    <button size="m" tuiButton type="button" (click)="prevPage()">prev</button>
     <button
-      size="xs"
+      size="m"
       tuiButton
       type="button"
       class="tui-space_left-3"

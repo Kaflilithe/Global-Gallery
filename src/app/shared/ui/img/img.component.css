@@ -1,3 +1,6 @@
-:host {
-  width: 100%;
+@media (width < 40rem) {
+  :host {
+
+    width: 100%;
+  }
 }
