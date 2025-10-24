@@ -4,9 +4,10 @@
     Author:
   </h3>
   <div class="flex items-center gap-2">
-    <tui-avatar [src]="image.userImageURL"/>
+    <tui-avatar [src]="image.userImageURL ? image.userImageURL : '@tui.user' | tuiIcon "/>
     <p>{{ image.user }}</p>
   </div>
 
+  <app-tags [tags]="image.tags | convertArray"></app-tags>
 
 }
