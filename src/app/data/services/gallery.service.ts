@@ -11,9 +11,9 @@ export class GalleryService {
   baseApiUrl = 'https://pixabay.com/api/';
   key = '52781238-046b00268278ee34e5672f51a';
 
-  getImages(per_page = 20, page = 1) {
+  getImages(per_page = 20, page = 1, q?: string) {
     return this.http.get<PictureDto>(
-      `${this.baseApiUrl}?key=${this.key}&per_page=${per_page}&page=${page}&editors_choice=true`,
+      `${this.baseApiUrl}?key=${this.key}&${q ? 'q=' + q : ''}&per_page=${per_page}&page=${page}&editors_choice=true`,
     );
   }
   getImage(id: number) {

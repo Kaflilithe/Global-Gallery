@@ -1,26 +1,35 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   ElementRef,
   inject,
   signal,
-  viewChildren,
+  viewChildren
 } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TuiButton } from '@taiga-ui/core';
 import { TuiPager } from '@taiga-ui/kit';
 import { map, switchMap } from 'rxjs';
 import { GalleryService } from '../../data/services/gallery.service';
 import { ImgComponent } from '../../shared/ui/img/img.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GallerySearchComponent } from './gallery-search/gallery-search.component';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css',
-  imports: [TuiButton, TuiPager, ImgComponent, FormsModule],
+  imports: [
+    TuiButton,
+    TuiPager,
+    ImgComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    GallerySearchComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryComponent {
@@ -32,25 +41,26 @@ export class GalleryComponent {
     read: ElementRef,
   });
 
-  page = signal(1);
+  queryParams = toSignal(this.activeRoute.queryParams);
+  page = computed(() =>
+    this.queryParams()?.['page'] ? Number(this.queryParams()?.['page']) : 1,
+  );
+  q = computed(() => this.queryParams()?.['q']?.toString());
+
   quantityPage = signal(10);
   quantityPictures = signal(5);
+
   pictures = rxResource({
     loader: () =>
       this.activeRoute.queryParams.pipe(
-        switchMap(({ page }) => {
-          if (page) {
-            this.page.set(Number(page));
-          }
+        switchMap(({ page, q }) => {
           return this.galleryService
-            .getImages(this.quantityPictures(), page)
+            .getImages(this.quantityPictures(), page, q)
             .pipe(
               map((dto) => {
                 this.quantityPage.update(() =>
                   Math.ceil(dto.totalHits / this.quantityPictures()),
                 );
-                console.log(Math.ceil(dto.totalHits / page));
-
                 return dto.hits;
               }),
             );
@@ -60,27 +70,32 @@ export class GalleryComponent {
 
   constructor() {
     effect(() => {
-      this.updatePage(this.page());
-    });
-
-    effect(() => {
-      this.imgQuery()[0]?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+      this.imgQuery()[0]?.nativeElement.scrollIntoView();
     });
   }
 
-  updatePage(page: number) {
+  onSearch(value: string) {
+    console.log('value', value);
+    this.updatePage({ page: 1, q: value });
+  }
+
+  updatePage(value: Partial<{ page: number; q: string }> = {}) {
+    const search = this.activeRoute.snapshot.queryParams;
     this.router.navigate([], {
       relativeTo: this.activeRoute,
-      queryParams: { page },
+      queryParams: { ...search, ...value },
     });
   }
+
   navigateToPhotoPage(id: number) {
     return this.router.navigate(['/image', id]);
   }
   nextPage() {
-    this.page.update((p) => (p <= this.quantityPage() ? p + 1 : p));
+    this.updatePage({ page: this.page() + 1 });
   }
   prevPage() {
-    this.page.update((p) => (p > 1 ? p - 1 : p));
+    if (this.page() > 1) {
+      this.updatePage({ page: this.page() - 1 });
+    }
   }
 }

@@ -1,5 +1,10 @@
-<div class="flex flex-wrap justify-evenly items-center gap-2 max-sm:gap-4 ">
+<div class="w-full sticky top-0 z-10 p-2 flex items-center justify-center backdrop-blur-md">
+  <div class="w-2xl">
+    <app-gallery-search [value]="q()" (onChange)="onSearch($event)"/>
+  </div>
+</div>
 
+<div class="flex flex-wrap justify-evenly items-center gap-2 max-sm:gap-4 ">
   @for (picture of pictures.value(); track picture.id) {
     <app-img #img (click)="navigateToPhotoPage(picture.id)" [picture]="picture"/>
   }

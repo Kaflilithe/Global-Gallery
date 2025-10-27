@@ -6,11 +6,10 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-img',
-  imports: [TuiSkeleton, NgOptimizedImage],
+  imports: [TuiSkeleton],
   templateUrl: './img.component.html',
   styleUrl: './img.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
