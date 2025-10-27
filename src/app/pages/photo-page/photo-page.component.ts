@@ -26,7 +26,7 @@ export class PhotoPagesComponent {
   profileService = inject(GalleryService);
   route = inject(ActivatedRoute);
   image = rxResource({
-    loader: () =>
+    stream: () =>
       this.route.params.pipe(
         switchMap(({ id }) => {
           return this.profileService.getImage(id);

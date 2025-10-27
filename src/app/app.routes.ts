@@ -10,7 +10,9 @@ export const routes: Routes = [
   },
   {
     path: 'gallery',
-    component: GalleryComponent,
+    children: [
+      { path: '', component: GalleryComponent },
+      { path: ':id', component: PhotoPagesComponent },
+    ],
   },
-  { path: 'image/:id', component: PhotoPagesComponent },
 ];
