@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ConvertArrayPipe implements PipeTransform {
   transform(value: string): string[] | null {
     if (!value) return null;
-    return value.split(',');
+    return value.split(', ');
   }
 }
