@@ -6,11 +6,11 @@ import {
   ElementRef,
   inject,
   signal,
-  viewChildren
+  viewChildren,
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TuiButton } from '@taiga-ui/core';
+import { TuiButton, TuiLoader } from '@taiga-ui/core';
 import { TuiPager } from '@taiga-ui/kit';
 import { map, switchMap } from 'rxjs';
 import { GalleryService } from '../../data/services/gallery.service';
@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GallerySearchComponent } from './gallery-search/gallery-search.component';
 import { injectQuery } from '../../lib/inject-query';
 import { GalleryQuerySchema } from './model/query.schema';
+import { TuiBlockStatusComponent } from '@taiga-ui/layout';
 
 @Component({
   selector: 'app-gallery',
@@ -32,6 +33,8 @@ import { GalleryQuerySchema } from './model/query.schema';
     ReactiveFormsModule,
     GallerySearchComponent,
     RouterLink,
+    TuiLoader,
+    TuiBlockStatusComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

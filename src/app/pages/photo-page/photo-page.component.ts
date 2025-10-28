@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { GalleryService } from '../../data/services/gallery.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { TuiAvatar } from '@taiga-ui/kit';
 import { ImgComponent } from '../../shared/ui/img/img.component';
 import { TuiIconPipe } from '@taiga-ui/core';
-import { TagsComponent } from '../../shared/ui/tags/tags.component';
 import { ConvertArrayPipe } from '../../helpers/pipes/convert-array.pipe';
+import { TagComponent } from '../../shared/ui/tag/tag.component';
 
 @Component({
   selector: 'app-photo-pages',
@@ -15,8 +15,9 @@ import { ConvertArrayPipe } from '../../helpers/pipes/convert-array.pipe';
     TuiAvatar,
     ImgComponent,
     TuiIconPipe,
-    TagsComponent,
     ConvertArrayPipe,
+    TagComponent,
+    RouterLink,
   ],
   templateUrl: './photo-page.component.html',
   styleUrl: './photo-page.component.css',

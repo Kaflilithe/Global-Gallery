@@ -7,7 +7,14 @@
     <tui-avatar [src]="image.userImageURL ? image.userImageURL : '@tui.user' | tuiIcon "/>
     <p>{{ image.user }}</p>
   </div>
+  @let tags = image.tags | convertArray;
+  <div class="flex max-w-80 flex-wrap gap-1">
+    @for (tag of tags; track tag) {
+      <a [routerLink]="['/gallery']" [queryParams]="{q:tag}">
+        <app-tag [tag]="tag"></app-tag>
+      </a>
 
-  <app-tags [tags]="image.tags | convertArray"></app-tags>
+    }
+  </div>
 
 }
